@@ -1,0 +1,29 @@
+name: Terraform
+
+on: push
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+    - uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.12.26
+
+    - name: Install tflint
+      run: |
+        curl -L "$(curl -Ls https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" -o tflint.zip
+        unzip -d $PWD/.bin tflint.zip
+    - name: Update PATH
+      run: |
+        echo "::add-path::$PWD/.bin"
+
+    - name: Run tflint
+      run: make tflint
+    - name: Run terraform validate
+      run: make validate
+      env:
+        AWS_REGION: us-east-1
