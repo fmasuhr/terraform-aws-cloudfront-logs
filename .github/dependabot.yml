@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    assignees:
+      - fmasuhr
+
+  - package-ecosystem: npm
+    directory: /lambda
+    schedule:
+      interval: daily
+    assignees:
+      - fmasuhr
