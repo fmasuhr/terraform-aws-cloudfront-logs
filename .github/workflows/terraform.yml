@@ -14,12 +14,9 @@ jobs:
         terraform_version: 0.12.28
 
     - name: Install tflint
-      run: |
-        curl -L "$(curl -Ls https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" -o tflint.zip
-        unzip -d $PWD/.bin tflint.zip
-    - name: Update PATH
-      run: |
-        echo "::add-path::$PWD/.bin"
+      run: brew install tflint
+      env:
+        HOMEBREW_NO_AUTO_UPDATE: 1
 
     - name: Run tflint
       run: make tflint
