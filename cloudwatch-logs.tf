@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "logs_cloudwatch_log_group" {
 
   statement {
     actions   = ["logs:CreateLogStream", "logs:PutLogEvents"]
-    resources = [aws_cloudwatch_log_group.logs.arn]
+    resources = ["${aws_cloudwatch_log_group.logs.arn}:*"]
   }
 }
 
@@ -38,6 +38,6 @@ data "aws_iam_policy_document" "lambda_cloudwatch_log_group" {
 
   statement {
     actions   = ["logs:CreateLogStream", "logs:PutLogEvents"]
-    resources = [aws_cloudwatch_log_group.lambda.arn]
+    resources = ["${aws_cloudwatch_log_group.lambda.arn}:*"]
   }
 }
