@@ -13,3 +13,10 @@ updates:
       interval: weekly
     assignees:
       - fmasuhr
+
+  - package-ecosystem: terraform
+    directory: /examples/basic
+    schedule:
+      interval: daily
+    assignees:
+      - fmasuhr
