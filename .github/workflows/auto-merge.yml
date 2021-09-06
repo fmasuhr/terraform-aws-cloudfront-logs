@@ -27,7 +27,7 @@ jobs:
             })).data.labels.map(label => label.name)
 
       - name: Merge PR
-        uses: pascalgn/automerge-action@v0.14.2
+        uses: pascalgn/automerge-action@v0.14.3
         if: ${{ contains(steps.label-names.outputs.result, 'javascript') }}
         env:
           MERGE_LABELS: '' # all
