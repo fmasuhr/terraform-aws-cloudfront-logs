@@ -21,6 +21,7 @@ tflint: $(MODULES)
 
 .PHONY: tflint_module
 tflint_module: init
+	tflint --init -c $(PWD)/.tflint.hcl
 	tflint -c $(PWD)/.tflint.hcl
 
 .PHONY: validate
