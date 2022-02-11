@@ -69,5 +69,4 @@ resource "aws_cloudfront_distribution" "this" {
 
 resource "aws_s3_bucket" "this" {
   bucket = "static"
-  acl    = "private"
 }
