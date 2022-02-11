@@ -46,7 +46,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "this" {
     status = "Enabled"
 
     expiration {
-      days = 90
+      days = var.retention
     }
 
     noncurrent_version_expiration {
