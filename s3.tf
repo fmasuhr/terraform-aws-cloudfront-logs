@@ -15,12 +15,12 @@ resource "aws_s3_bucket_acl" "this" {
 
   access_control_policy {
     owner {
-      id = data.aws_canonical_user_id.current.bucket
+      id = data.aws_canonical_user_id.current.id
     }
 
     grant {
       grantee {
-        id   = data.aws_canonical_user_id.current.bucket
+        id   = data.aws_canonical_user_id.current.id
         type = "CanonicalUser"
       }
       permission = "FULL_CONTROL"
