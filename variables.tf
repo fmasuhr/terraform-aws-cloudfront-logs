@@ -19,3 +19,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "prevent_s3_destruction" {
+  default     = true
+  description = "Prevent the destruction of the S3 Bucket"
+  type        = bool
+}
