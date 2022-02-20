@@ -13,7 +13,7 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-20.04
-    if: ${{ github.actor == 'dependabot[bot]' && github.event.workflow_run.pull_requests[0] }}
+    if: github.actor == 'dependabot[bot]' && github.event.workflow_run.pull_requests[0]
 
     steps:
       - uses: actions/github-script@v6
@@ -28,7 +28,7 @@ jobs:
 
       - name: Merge PR
         uses: pascalgn/automerge-action@v0.14.3
-        if: ${{ contains(steps.label-names.outputs.result, 'javascript') }}
+        if: contains(steps.label-names.outputs.result, 'javascript')
         env:
           MERGE_LABELS: '' # all
           GITHUB_TOKEN: ${{ github.token }}
