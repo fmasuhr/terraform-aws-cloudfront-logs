@@ -1,10 +1,6 @@
 name: Auto-merge
 
-on:
-  workflow_run:
-    workflows: ['Terraform']
-    types:
-      - completed
+on: pull_request_target
 
 permissions:
   contents: write
@@ -13,22 +9,16 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-20.04
-    if: github.actor == 'dependabot[bot]' && github.event.workflow_run.pull_requests[0]
+    if: github.actor == 'dependabot[bot]'
 
     steps:
-      - uses: actions/github-script@v6
-        id: label-names
+      - id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v1.2.0
         with:
-          script: |
-            return (await github.rest.pulls.get({
-              owner: context.payload.repository.owner.login,
-              pull_number: context.payload.workflow_run.pull_requests[0].number,
-              repo: context.payload.repository.name
-            })).data.labels.map(label => label.name)
-
-      - name: Merge PR
-        uses: pascalgn/automerge-action@v0.14.3
-        if: contains(steps.label-names.outputs.result, 'javascript')
+          github-token: ${{ github.token }}
+      - name: Enable auto-merge
+        if: steps.dependabot-metadata.outputs.package-ecosystem == 'npm_and_yarn'
+        run: gh pr merge --auto --merge "$PR_URL"
         env:
-          MERGE_LABELS: '' # all
           GITHUB_TOKEN: ${{ github.token }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
