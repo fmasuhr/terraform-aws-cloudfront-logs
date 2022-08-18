@@ -15,8 +15,8 @@ resource "aws_cloudfront_distribution" "this" {
   enabled = true
 
   origin {
-    domain_name = aws_s3_bucket.this.website_endpoint
-    origin_id   = aws_s3_bucket.this.bucket
+    domain_name = aws_s3_bucket_website_configuration.this.website_endpoint
+    origin_id   = aws_s3_bucket_website_configuration.this.bucket
 
     custom_origin_config {
       http_port              = 80
@@ -33,7 +33,7 @@ resource "aws_cloudfront_distribution" "this" {
 
   default_cache_behavior {
     compress               = true
-    target_origin_id       = aws_s3_bucket.this.bucket # need to match self.origin.origin_id
+    target_origin_id       = aws_s3_bucket_website_configuration.this.bucket # need to match self.origin.origin_id
     viewer_protocol_policy = "redirect-to-https"
 
     allowed_methods = ["HEAD", "GET"]
