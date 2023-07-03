@@ -5,7 +5,6 @@ const { unescape } = require('querystring');
 
 const gunzipAsync = promisify(gunzip);
 
-
 // Parsing the line containing the version.
 //
 // Format:

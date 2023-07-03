@@ -5,7 +5,6 @@ const [,,, region,,, logGroupName] = process.env.CLOUDWATCH_LOGS_GROUP_ARN.split
 
 const cloudwatchlogs = new CloudWatchLogs({ region });
 
-
 // Group array of hashes by defined key.
 //
 const groupBy = (array, key) => (
