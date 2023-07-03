@@ -53,7 +53,7 @@ const describeLogStream = async (logStreamName) => {
 // Extend the original record with some additional fields
 // and encapsule records into CloudWatch Logs event.
 //
-const buildlogEvents = records => (
+const buildlogEvents = (records) => (
   records.map((record) => {
     const payload = record;
     payload.name = 'logs:cloudfront';

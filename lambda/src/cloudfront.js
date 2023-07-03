@@ -30,7 +30,7 @@ const parseFields = (line) => {
   if (!line.startsWith('#Fields:')) {
     throw new Error(`Invalid fields line '${line}'`);
   } else {
-    return line.match(/[\w()-]+(\s|$)/g).map(field => (
+    return line.match(/[\w()-]+(\s|$)/g).map((field) => (
       // Strip parentheses and remove unecessary abbreviations in field names
       field.replace(/\(([^)]+)\)/, '-$1').replace(/^(c-|cs-|sc-)/, '').trim().toLowerCase()
     ));
@@ -40,7 +40,7 @@ const parseFields = (line) => {
 // Unescape value twice (because fuck you that's why).
 // https://forums.aws.amazon.com/thread.jspa?threadID=134017
 //
-const decode = value => unescape(unescape(value));
+const decode = (value) => unescape(unescape(value));
 
 // Split up line and assign to corresponding field.
 //
@@ -78,5 +78,5 @@ exports.parseLogFile = async ({ bucket, key, region }) => {
   // Shift next line containing fields format and parse it for validation
   const fields = parseFields(lines.shift());
 
-  return lines.map(line => parseLine(line, fields));
+  return lines.map((line) => parseLine(line, fields));
 };
