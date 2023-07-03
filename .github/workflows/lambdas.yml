@@ -1,0 +1,34 @@
+name: Lambdas
+
+on: push
+
+jobs:
+  lint_javascript:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        directory:
+          - lambda/
+    defaults:
+      run:
+        working-directory: ${{ matrix.directory }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ${{ matrix.directory }}/.nvmrc
+
+      - name: NPM install
+        run: npm ci
+      - name: Lint Javascript code
+        run: npm run lint
+
+  lint: # this is a workaround, see https://github.community/t/status-check-for-a-matrix-jobs/127354/6
+    if: ${{ always() }}
+    needs: [lint_javascript]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check build status of all needed jobs
+        if: ${{ needs.lint_javascript.result != 'success' }}
+        run: exit 1
