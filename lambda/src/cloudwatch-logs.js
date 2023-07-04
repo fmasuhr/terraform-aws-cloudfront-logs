@@ -1,9 +1,14 @@
-const { CloudWatchLogs } = require('aws-sdk');
+const {
+  CloudWatchLogsClient,
+  CreateLogStreamCommand,
+  DescribeLogStreamsCommand,
+  PutLogEventsCommand,
+} = require('@aws-sdk/client-cloudwatch-logs');
 
 // Split up ARN like "arn:aws:logs:eu-west-1:123456789012:log-group:example-group:*"
 const [,,, region,,, logGroupName] = process.env.CLOUDWATCH_LOGS_GROUP_ARN.split(':');
 
-const cloudwatchlogs = new CloudWatchLogs({ region });
+const cloudWatchLogsClient = new CloudWatchLogsClient({ region });
 
 // Group array of hashes by defined key.
 //
@@ -23,9 +28,12 @@ const groupBy = (array, key) => (
 // Find log stream by prefix.
 //
 const findLogStream = async (logStreamNamePrefix) => {
-  const params = { logGroupName, logStreamNamePrefix };
+  const describeLogStreamsCommand = new DescribeLogStreamsCommand({
+    logGroupName,
+    logStreamNamePrefix,
+  });
 
-  const { logStreams } = await cloudwatchlogs.describeLogStreams(params).promise();
+  const { logStreams } = await cloudWatchLogsClient.send(describeLogStreamsCommand);
 
   if (logStreams.length > 1) {
     throw new Error(`Found '${logStreams.length}' matching CloudWatch Logs streams but expected only one.`);
@@ -41,9 +49,10 @@ const findLogStream = async (logStreamNamePrefix) => {
 //
 const describeLogStream = async (logStreamName) => {
   let logStream = await findLogStream(logStreamName);
+  const createLogStreamCommand = new CreateLogStreamCommand({ logGroupName, logStreamName });
 
   if (!logStream) {
-    await cloudwatchlogs.createLogStream({ logGroupName, logStreamName }).promise();
+    await cloudWatchLogsClient.send(createLogStreamCommand);
     logStream = await findLogStream(logStreamName);
   }
 
@@ -73,14 +82,14 @@ exports.putLogEvents = async (records) => {
   const putLogEventsCalls = Object.keys(groupedRecords).map(async (key) => {
     const logStream = await describeLogStream(key);
 
-    const params = {
+    const putLogEventsCommand = new PutLogEventsCommand({
       logEvents: buildlogEvents(groupedRecords[key]),
       logGroupName,
       logStreamName: logStream.logStreamName,
       sequenceToken: logStream.uploadSequenceToken,
-    };
+    });
 
-    return cloudwatchlogs.putLogEvents(params).promise();
+    return cloudWatchLogsClient.send(putLogEventsCommand);
   });
 
   return Promise.all(putLogEventsCalls);

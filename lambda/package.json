@@ -2,7 +2,8 @@
   "name": "cloudfront-logs",
   "version": "0.0.1",
   "dependencies": {
-    "aws-sdk": "*"
+    "@aws-sdk/client-cloudwatch-logs": "*",
+    "@aws-sdk/client-s3": "*"
   },
   "devDependencies": {
     "eslint": "*",
