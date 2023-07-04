@@ -1,6 +1,6 @@
 const { gunzip } = require('zlib');
 const { promisify } = require('util');
-const { S3 } = require('aws-sdk');
+const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
 const { unescape } = require('querystring');
 
 const gunzipAsync = promisify(gunzip);
@@ -59,9 +59,10 @@ const parseLine = (line, fields) => {
 // Get log file from S3 and unzip it.
 //
 const getLogFile = async ({ bucket, key, region }) => {
-  const s3 = new S3({ region });
+  const s3Client = new S3Client({ region });
+  const getObjectCommand = new GetObjectCommand({ Bucket: bucket, Key: key });
 
-  const zippedObject = await s3.getObject({ Bucket: bucket, Key: key }).promise();
+  const zippedObject = await s3Client.send(getObjectCommand);
   const logFile = await gunzipAsync(zippedObject.Body);
   return logFile.toString().trim();
 };
