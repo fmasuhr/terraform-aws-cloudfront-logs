@@ -11,6 +11,10 @@ module "this" {
   retention = 30
 }
 
+data "aws_cloudfront_cache_policy" "managed_caching_optimized" {
+  name = "Managed-CachingOptimized"
+}
+
 resource "aws_cloudfront_distribution" "this" {
   enabled = true
 
@@ -39,17 +43,7 @@ resource "aws_cloudfront_distribution" "this" {
     allowed_methods = ["HEAD", "GET"]
     cached_methods  = ["HEAD", "GET"]
 
-    default_ttl = 900
-    max_ttl     = 86400
-    min_ttl     = 0
-
-    forwarded_values {
-      query_string = false
-
-      cookies {
-        forward = "none"
-      }
-    }
+    cache_policy_id = data.aws_cloudfront_cache_policy.managed_caching_optimized.id
   }
 
   logging_config {
