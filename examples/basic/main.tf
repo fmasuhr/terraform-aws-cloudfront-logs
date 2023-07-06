@@ -43,7 +43,7 @@ resource "aws_cloudfront_distribution" "this" {
     allowed_methods = ["HEAD", "GET"]
     cached_methods  = ["HEAD", "GET"]
 
-    cache_policy_id = data.aws_cloudfront_cache_policy.managed-caching-optimized.id
+    cache_policy_id = data.aws_cloudfront_cache_policy.managed_caching_optimized.id
   }
 
   logging_config {
