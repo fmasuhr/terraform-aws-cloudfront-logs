@@ -11,7 +11,7 @@ module "this" {
   retention = 30
 }
 
-data "aws_cloudfront_cache_policy" "managed-caching-optimized" {
+data "aws_cloudfront_cache_policy" "managed_caching_optimized" {
   name = "Managed-CachingOptimized"
 }
 
