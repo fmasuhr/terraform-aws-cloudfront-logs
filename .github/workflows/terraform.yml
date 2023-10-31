@@ -9,7 +9,7 @@ jobs:
     steps:
 
     - uses: actions/checkout@v4
-    - uses: hashicorp/setup-terraform@v2.0.3
+    - uses: hashicorp/setup-terraform@v3.0.0
 
     - uses: Homebrew/actions/setup-homebrew@master
 
