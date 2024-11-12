@@ -6,9 +6,7 @@
     "@aws-sdk/client-s3": "*"
   },
   "devDependencies": {
-    "eslint": "*",
-    "eslint-config-airbnb-base": "*",
-    "eslint-plugin-import": "*"
+    "eslint": "*"
   },
   "scripts": {
     "lint": "eslint ."
