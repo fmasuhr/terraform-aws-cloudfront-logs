@@ -1,5 +1,5 @@
 config {
-  module = true
+  call-module-type = all
 }
 
 plugin "aws" {
