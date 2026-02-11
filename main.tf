@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "this" {
   function_name = var.name
 
-  runtime                        = "nodejs20.x"
+  runtime                        = "nodejs24.x"
   handler                        = "index.handler"
   timeout                        = 5
   reserved_concurrent_executions = 3
