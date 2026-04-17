@@ -13,7 +13,7 @@ resource "aws_cloudwatch_log_group" "logs" {
 data "aws_iam_policy_document" "logs_cloudwatch_log_group" {
   statement {
     actions   = ["logs:DescribeLogStreams"]
-    resources = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"]
+    resources = ["arn:aws:logs:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:*"]
   }
 
   statement {
@@ -33,7 +33,7 @@ resource "aws_cloudwatch_log_group" "lambda" {
 data "aws_iam_policy_document" "lambda_cloudwatch_log_group" {
   statement {
     actions   = ["logs:DescribeLogStreams"]
-    resources = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"]
+    resources = ["arn:aws:logs:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:*"]
   }
 
   statement {
