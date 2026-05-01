@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "logs_cloudwatch_log_group" {
 resource "aws_cloudwatch_log_group" "lambda" {
   name = "/aws/lambda/${var.name}"
 
-  retention_in_days = var.lambda_retention
+  retention_in_days = var.lambda_logs_retention
 
   tags = var.tags
 }
