@@ -17,7 +17,7 @@ variable "retention" {
 variable "lambda_logs_retention" {
   description = "Retention in days for CloudWatch Logs group of the Lambda function."
   type        = number
-  default     = 3
+  default     = 30
 }
 
 variable "tags" {
