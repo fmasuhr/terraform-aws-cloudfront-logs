@@ -4,6 +4,8 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
     assignees:
       - fmasuhr
     groups:
@@ -14,7 +16,9 @@ updates:
   - package-ecosystem: npm
     directory: /lambda
     schedule:
-      interval: weekly
+      interval: daily
+    cooldown:
+      default-days: 7
     assignees:
       - fmasuhr
 
@@ -22,5 +26,7 @@ updates:
     directory: /examples/basic
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
     assignees:
       - fmasuhr
