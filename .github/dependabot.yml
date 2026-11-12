@@ -4,6 +4,8 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
     assignees:
       - fmasuhr
     groups:
@@ -15,6 +17,8 @@ updates:
     directory: /lambda
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
     assignees:
       - fmasuhr
 
@@ -22,5 +26,7 @@ updates:
     directory: /examples/basic
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
     assignees:
       - fmasuhr
