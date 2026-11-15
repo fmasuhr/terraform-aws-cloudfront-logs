@@ -10,8 +10,8 @@ jobs:
     if: github.event.pull_request.user.login == 'dependabot[bot]'
 
     permissions:
-      contents: write
-      pull-requests: write
+      contents: write # to enable auto-merge with gh pr merge --auto
+      pull-requests: write # to enable auto-merge with gh pr merge --auto
 
     steps:
       - id: dependabot-metadata
