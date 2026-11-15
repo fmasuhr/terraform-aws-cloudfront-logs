@@ -2,6 +2,8 @@ name: Lambdas
 
 on: push
 
+permissions: {}
+
 jobs:
   lint_javascript:
     runs-on: ubuntu-24.04
@@ -12,6 +14,9 @@ jobs:
     defaults:
       run:
         working-directory: ${{ matrix.directory }}
+
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -30,6 +35,7 @@ jobs:
     if: ${{ always() }}
     needs: [lint_javascript]
     runs-on: ubuntu-24.04
+    permissions: {}
     steps:
       - name: Check build status of all needed jobs
         if: ${{ needs.lint_javascript.result != 'success' }}

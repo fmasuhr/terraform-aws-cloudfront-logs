@@ -2,9 +2,14 @@ name: Terraform
 
 on: push
 
+permissions: {}
+
 jobs:
   validate:
     runs-on: ubuntu-24.04
+
+    permissions:
+      contents: read
 
     steps:
 
