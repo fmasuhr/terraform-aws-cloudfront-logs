@@ -21,6 +21,10 @@ updates:
       default-days: 7
     assignees:
       - fmasuhr
+    groups:
+      aws-sdk:
+        patterns:
+          - "@aws-sdk/*"
 
   - package-ecosystem: terraform
     directory: /examples/basic
